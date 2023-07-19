@@ -124,7 +124,7 @@ namespace polygon
             // vertexCountLabel
             // 
             vertexCountLabel.AutoSize = true;
-            vertexCountLabel.Location = new System.Drawing.Point(1290, 50);
+            vertexCountLabel.Location = new System.Drawing.Point(1150, 50);
             vertexCountLabel.Margin = new System.Windows.Forms.Padding(15, 0, 15, 0);
             vertexCountLabel.Name = "vertexCountLabel";
             vertexCountLabel.Size = new System.Drawing.Size(25, 55);
