@@ -226,7 +226,7 @@ namespace polygon
                 float area = CalculatePolygonArea(points);  //area
                 string areaText = $"Area: {area} sq units";
                 SizeF areaTextSize = g.MeasureString(areaText, Font);
-                g.DrawString(areaText, Font, Brushes.Black, (width - areaTextSize.Width) / 2, height - AxisMargin - areaTextSize.Height - 800);
+                g.DrawString(areaText, Font, Brushes.Black, (width - areaTextSize.Width) / 2, height - AxisMargin - areaTextSize.Height - 700);
             }
             if (drawAxisLines)
             {
