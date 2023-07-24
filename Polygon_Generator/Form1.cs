@@ -277,7 +277,7 @@ namespace polygon
         {
             return points.Count > 2 && !DoLinesIntersect();
         }
-        private void LoadPointsFromCSV(string filePath)
+         private void LoadPointsFromCSV(string filePath)
         {
             points.Clear();
             using (StreamReader reader = new StreamReader(filePath))
@@ -288,11 +288,12 @@ namespace polygon
                     string[] coordinates = line.Split(',');
                     if (coordinates.Length == 2 && float.TryParse(coordinates[0], out float x) && float.TryParse(coordinates[1], out float y))
                     {
-                        points.Add(new PointF(x / MeasurementScale, y / MeasurementScale));
+                        points.Add(new PointF(x * MeasurementScale, y * MeasurementScale)); 
                     }
                 }
             }
             removedPoints.Clear();
+            UpdateVertexCountLabel(); 
             Invalidate();
         }
         private void BrowseButton_Click(object sender, EventArgs e)
