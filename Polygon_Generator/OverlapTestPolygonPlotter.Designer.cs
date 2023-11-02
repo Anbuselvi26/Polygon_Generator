@@ -33,23 +33,24 @@ namespace polygon
         /// </summary>
         private void InitializeComponent()
         {
-            saveButton = new System.Windows.Forms.Button();
-            browseButton = new System.Windows.Forms.Button();
-            clearButton = new System.Windows.Forms.Button();
-            undoButton = new System.Windows.Forms.Button();
-            redoButton = new System.Windows.Forms.Button();
-            showButton = new System.Windows.Forms.Button();
-            vertexCountLabel = new System.Windows.Forms.Label();
+            saveButton = new Button();
+            browseButton = new Button();
+            clearButton = new Button();
+            undoButton = new Button();
+            redoButton = new Button();
+            showButton = new Button();
+            vertexCountLabel = new Label();
+            button1 = new Button();
             SuspendLayout();
             // 
             // saveButton
             // 
-            saveButton.BackColor = System.Drawing.SystemColors.ScrollBar;
-            saveButton.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            saveButton.Location = new System.Drawing.Point(492, 33);
-            saveButton.Margin = new System.Windows.Forms.Padding(5, 9, 5, 9);
+            saveButton.BackColor = SystemColors.ScrollBar;
+            saveButton.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            saveButton.Location = new Point(492, 33);
+            saveButton.Margin = new Padding(5, 9, 5, 9);
             saveButton.Name = "saveButton";
-            saveButton.Size = new System.Drawing.Size(103, 38);
+            saveButton.Size = new Size(103, 38);
             saveButton.TabIndex = 0;
             saveButton.Text = "Save";
             saveButton.UseVisualStyleBackColor = false;
@@ -57,12 +58,12 @@ namespace polygon
             // 
             // browseButton
             // 
-            browseButton.BackColor = System.Drawing.SystemColors.ScrollBar;
-            browseButton.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            browseButton.Location = new System.Drawing.Point(383, 33);
-            browseButton.Margin = new System.Windows.Forms.Padding(5, 9, 5, 9);
+            browseButton.BackColor = SystemColors.ScrollBar;
+            browseButton.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            browseButton.Location = new Point(383, 33);
+            browseButton.Margin = new Padding(5, 9, 5, 9);
             browseButton.Name = "browseButton";
-            browseButton.Size = new System.Drawing.Size(103, 38);
+            browseButton.Size = new Size(103, 38);
             browseButton.TabIndex = 1;
             browseButton.Text = "Browse";
             browseButton.UseVisualStyleBackColor = false;
@@ -70,13 +71,13 @@ namespace polygon
             // 
             // clearButton
             // 
-            clearButton.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            clearButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            clearButton.ForeColor = System.Drawing.Color.Black;
-            clearButton.Location = new System.Drawing.Point(1022, 33);
-            clearButton.Margin = new System.Windows.Forms.Padding(5, 9, 5, 9);
+            clearButton.BackColor = SystemColors.ActiveBorder;
+            clearButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            clearButton.ForeColor = Color.Black;
+            clearButton.Location = new Point(1022, 33);
+            clearButton.Margin = new Padding(5, 9, 5, 9);
             clearButton.Name = "clearButton";
-            clearButton.Size = new System.Drawing.Size(103, 38);
+            clearButton.Size = new Size(103, 38);
             clearButton.TabIndex = 2;
             clearButton.Text = "Clear";
             clearButton.UseVisualStyleBackColor = false;
@@ -84,12 +85,12 @@ namespace polygon
             // 
             // undoButton
             // 
-            undoButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            undoButton.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            undoButton.Location = new System.Drawing.Point(625, 33);
-            undoButton.Margin = new System.Windows.Forms.Padding(5, 9, 5, 9);
+            undoButton.BackColor = SystemColors.ActiveCaption;
+            undoButton.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            undoButton.Location = new Point(625, 33);
+            undoButton.Margin = new Padding(5, 9, 5, 9);
             undoButton.Name = "undoButton";
-            undoButton.Size = new System.Drawing.Size(103, 38);
+            undoButton.Size = new Size(103, 38);
             undoButton.TabIndex = 3;
             undoButton.Text = "Undo";
             undoButton.UseVisualStyleBackColor = false;
@@ -97,12 +98,12 @@ namespace polygon
             // 
             // redoButton
             // 
-            redoButton.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            redoButton.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            redoButton.Location = new System.Drawing.Point(736, 33);
-            redoButton.Margin = new System.Windows.Forms.Padding(5, 9, 5, 9);
+            redoButton.BackColor = SystemColors.ButtonShadow;
+            redoButton.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            redoButton.Location = new Point(736, 33);
+            redoButton.Margin = new Padding(5, 9, 5, 9);
             redoButton.Name = "redoButton";
-            redoButton.Size = new System.Drawing.Size(103, 38);
+            redoButton.Size = new Size(103, 38);
             redoButton.TabIndex = 4;
             redoButton.Text = "Redo";
             redoButton.UseVisualStyleBackColor = false;
@@ -110,12 +111,12 @@ namespace polygon
             // 
             // showButton
             // 
-            showButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            showButton.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            showButton.Location = new System.Drawing.Point(846, 33);
-            showButton.Margin = new System.Windows.Forms.Padding(5, 9, 5, 9);
+            showButton.BackColor = SystemColors.ActiveCaption;
+            showButton.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            showButton.Location = new Point(846, 33);
+            showButton.Margin = new Padding(5, 9, 5, 9);
             showButton.Name = "showButton";
-            showButton.Size = new System.Drawing.Size(103, 38);
+            showButton.Size = new Size(103, 38);
             showButton.TabIndex = 5;
             showButton.Text = "Show";
             showButton.UseVisualStyleBackColor = false;
@@ -124,18 +125,33 @@ namespace polygon
             // vertexCountLabel
             // 
             vertexCountLabel.AutoSize = true;
-            vertexCountLabel.Location = new System.Drawing.Point(1150, 50);
-            vertexCountLabel.Margin = new System.Windows.Forms.Padding(15, 0, 15, 0);
+            vertexCountLabel.Location = new Point(1150, 50);
+            vertexCountLabel.Margin = new Padding(15, 0, 15, 0);
             vertexCountLabel.Name = "vertexCountLabel";
-            vertexCountLabel.Size = new System.Drawing.Size(25, 55);
+            vertexCountLabel.Size = new Size(10, 15);
             vertexCountLabel.TabIndex = 50;
             vertexCountLabel.Text = " ";
             // 
+            // button1
+            // 
+            button1.BackColor = SystemColors.ActiveBorder;
+            button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            button1.ForeColor = Color.Black;
+            button1.Location = new Point(1216, 19);
+            button1.Margin = new Padding(5, 9, 5, 9);
+            button1.Name = "button1";
+            button1.Size = new Size(163, 65);
+            button1.TabIndex = 51;
+            button1.Text = "View Test Polygon Generator";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
             // PolygonGenerator
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1924, 1007);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1924, 1007);
+            Controls.Add(button1);
             Controls.Add(showButton);
             Controls.Add(redoButton);
             Controls.Add(undoButton);
@@ -143,12 +159,11 @@ namespace polygon
             Controls.Add(browseButton);
             Controls.Add(saveButton);
             Controls.Add(vertexCountLabel);
-            Margin = new System.Windows.Forms.Padding(5, 9, 5, 9);
+            Margin = new Padding(5, 9, 5, 9);
             Name = "PolygonGenerator";
             Text = "Polygon Generator";
             ResumeLayout(false);
             PerformLayout();
-
         }
 
         #endregion
@@ -160,6 +175,7 @@ namespace polygon
         private Button redoButton;
         private Button showButton;
         private Label vertexCountLabel;
+        private Button button1;
     }
 }
 

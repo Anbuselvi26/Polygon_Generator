@@ -1,8 +1,10 @@
+using RandomPolygonGenerator;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using static System.Windows.Forms.DataFormats;
 
 namespace polygon
 {
@@ -148,10 +150,7 @@ namespace polygon
             int y = ClientSize.Height - (int)Math.Round(point.Y * scaleY) - AxisMargin;
             return new PointF(x, y);
         }
-        private int ScaleSizeToScreen(int size, float scale)
-        {
-            return (int)Math.Round(size * scale);
-        }
+        
         private bool DoLinesIntersect(PointF p1, PointF p2, PointF p3, PointF p4)
         {
             if (Math.Max(p1.X, p2.X) < Math.Min(p3.X, p4.X) || Math.Min(p1.X, p2.X) > Math.Max(p3.X, p4.X) ||
@@ -277,7 +276,7 @@ namespace polygon
         {
             return points.Count > 2 && !DoLinesIntersect();
         }
-         private void LoadPointsFromCSV(string filePath)
+        private void LoadPointsFromCSV(string filePath)
         {
             points.Clear();
             using (StreamReader reader = new StreamReader(filePath))
@@ -288,12 +287,12 @@ namespace polygon
                     string[] coordinates = line.Split(',');
                     if (coordinates.Length == 2 && float.TryParse(coordinates[0], out float x) && float.TryParse(coordinates[1], out float y))
                     {
-                        points.Add(new PointF(x * MeasurementScale, y * MeasurementScale)); 
+                        points.Add(new PointF(x * MeasurementScale, y * MeasurementScale));
                     }
                 }
             }
             removedPoints.Clear();
-            UpdateVertexCountLabel(); 
+            UpdateVertexCountLabel();
             Invalidate();
         }
         private void BrowseButton_Click(object sender, EventArgs e)
@@ -386,5 +385,19 @@ namespace polygon
             }
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Create an instance of Form2
+            MainForm Plotter = new MainForm();
+
+            // Hide the current form (Form1)
+            this.Hide();
+
+            // Show Form2
+            Plotter.ShowDialog();
+
+            // Close Form1 when Form2 is closed (optional)
+            this.Close();
+        }
     }
 }
