@@ -23,21 +23,40 @@ namespace RandomPolygonGenerator
             float minCoordinateValue = (float)minCoordinateValueNumericUpDown.Value;
             float maxCoordinateValue = (float)maxCoordinateValueNumericUpDown.Value;
 
-            Random random = new Random();
-
-            string folderPath = CreateFolderOnDesktop("GeneratedPolygons"); // Create a folder for saving the files
-
-            for (int i = 0; i < numPolygons; i++)
+            if (minVertexRangeNumericUpDown.Value < 3)
             {
-                List<string> polygonCoordinates = GenerateNonIntersectingPolygon(minVertices, maxVertices, minCoordinateValue, maxCoordinateValue, random);
-
-                string csvFileName = $"polygon_{i + 1}.csv";
-                string csvFilePath = Path.Combine(folderPath, csvFileName);
-
-                File.WriteAllLines(csvFilePath, polygonCoordinates);
+                MessageBox.Show($"Polygon should have a minimum of 3 vertices.");
             }
 
-            MessageBox.Show($"Non-intersecting polygons generated and saved in the folder:\n{folderPath}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (minVertexRangeNumericUpDown.Value > maxVertexRangeNumericUpDown.Value ||
+            minCoordinateValueNumericUpDown.Value > maxCoordinateValueNumericUpDown.Value)
+            {
+                MessageBox.Show($"Input maximum value should be greater than minimum value.", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            else if (minVertexRangeNumericUpDown.Value >= 3 &&
+            maxVertexRangeNumericUpDown.Value >= minVertexRangeNumericUpDown.Value &
+            numPolygonsNumericUpDown.Value >= 0 &&
+            minCoordinateValueNumericUpDown.Value >= 0 &&
+            maxCoordinateValueNumericUpDown.Value >= minCoordinateValueNumericUpDown.Value)
+            {
+                Random random = new Random();
+
+                string folderPath = CreateFolderOnDesktop("GeneratedPolygons"); // Create a folder for saving the files
+
+                for (int i = 0; i < numPolygons; i++)
+                {
+                    List<string> polygonCoordinates = GenerateNonIntersectingPolygon(minVertices, maxVertices, minCoordinateValue, maxCoordinateValue, random);
+
+                    string csvFileName = $"polygon_{i + 1}.csv";
+                    string csvFilePath = Path.Combine(folderPath, csvFileName);
+
+                    File.WriteAllLines(csvFilePath, polygonCoordinates);
+                }
+
+                MessageBox.Show($"Non-intersecting polygons generated and saved in the folder:\n{folderPath}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
         }
 
         private string CreateFolderOnDesktop(string folderName)
