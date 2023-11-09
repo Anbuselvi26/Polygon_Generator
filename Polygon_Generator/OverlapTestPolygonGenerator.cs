@@ -14,6 +14,8 @@ namespace RandomPolygonGenerator
             InitializeComponent();
         }
 
+        //  After getting input parameter values from user and when user clicks generate button
+        //  This method creates random polygon csv data files and store them in a folder
         private void generateButton_Click(object sender, EventArgs e)
         {
             int minVertices = (int)minVertexRangeNumericUpDown.Value;
@@ -23,17 +25,20 @@ namespace RandomPolygonGenerator
             float minCoordinateValue = (float)minCoordinateValueNumericUpDown.Value;
             float maxCoordinateValue = (float)maxCoordinateValueNumericUpDown.Value;
 
+            //  Condition for polygon vertex minimum range
             if (minVertexRangeNumericUpDown.Value < 3)
             {
                 MessageBox.Show($"Polygon should have a minimum of 3 vertices.");
             }
 
+            //  Condition for polygon vertex and coordinate min should be less than maximum 
             if (minVertexRangeNumericUpDown.Value > maxVertexRangeNumericUpDown.Value ||
             minCoordinateValueNumericUpDown.Value > maxCoordinateValueNumericUpDown.Value)
             {
                 MessageBox.Show($"Input maximum value should be greater than minimum value.", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
+            //  Condition for the parameters should be in positive numbers
             else if (minVertexRangeNumericUpDown.Value >= 3 &&
             maxVertexRangeNumericUpDown.Value >= minVertexRangeNumericUpDown.Value &
             numPolygonsNumericUpDown.Value >= 0 &&
@@ -56,9 +61,48 @@ namespace RandomPolygonGenerator
 
                 MessageBox.Show($"Non-intersecting polygons generated and saved in the folder:\n{folderPath}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                using (var folderDialog = new FolderBrowserDialog())
+                {
+                    if (folderDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string selectedFolder = folderDialog.SelectedPath;
+
+                        // Get all files with the .csv extension in the selected folder
+                        string[] csvFiles = Directory.GetFiles(selectedFolder, "*.csv");
+
+                        if (csvFiles.Length == 0)
+                        {
+                            MessageBox.Show("No CSV files found in the selected folder.");
+                            return;
+                        }
+
+                        if (csvFiles.Length < 2)
+                        {
+                            MessageBox.Show("At least two CSV files are required to pair.");
+                            return;
+                        }
+
+                        List<string> pairedFiles = new List<string>();
+
+                        // Generate pairs of CSV files
+                        for (int i = 0; i < csvFiles.Length; i++)
+                        {
+                            for (int j = i + 1; j < csvFiles.Length; j++)
+                            {
+                                pairedFiles.Add(csvFiles[i]);
+                                pairedFiles.Add(csvFiles[j]);
+                            }
+                        }
+
+                        // Display the paired CSV files
+                        fileListListBox.Items.Clear();
+                        fileListListBox.Items.AddRange(pairedFiles.ToArray());
+                    }
+                }
             }
         }
 
+        //  This methods creates a folder on desktop to save the csv files that are generated
         private string CreateFolderOnDesktop(string folderName)
         {
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -72,6 +116,56 @@ namespace RandomPolygonGenerator
             return folderPath;
         }
 
+        
+        // This event is triggered when an item is selected in the fileListListBox
+        // The code is designed to read the contents of a selected CSV file, extract the X, Y coordinates of polygons from the CSV file
+        // Then draw those polygons on a PictureBox
+        private void fileListListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedFile = fileListListBox.SelectedItem as string;
+
+            if (selectedFile != null)
+            {
+                // Read the CSV file and extract the X, Y coordinates of the polygons
+                List<Point[]> polygons = new List<Point[]>();
+                using (var reader = new StreamReader(selectedFile))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        var line = reader.ReadLine();
+                        var values = line.Split(',');
+
+                        if (values.Length % 2 == 0)
+                        {
+                            var polygon = new Point[values.Length / 2];
+                            for (int i = 0; i < values.Length; i += 2)
+                            {
+                                int x = int.Parse(values[i]);
+                                int y = int.Parse(values[i + 1]);
+                                polygon[i / 2] = new Point(x, y);
+                            }
+                            polygons.Add(polygon);
+                        }
+                    }
+                }
+
+                using (var bmp = new Bitmap(pictureBox.Width, pictureBox.Height))
+                using (var graphics = Graphics.FromImage(bmp))
+                {
+                    graphics.Clear(Color.White);
+
+                    foreach (var polygon in polygons)
+                    {
+                        graphics.DrawPolygon(Pens.Black, polygon);
+                    }
+
+                    // Display the image in the PictureBox
+                    pictureBox.Image = bmp;
+                }
+            }
+        }
+
+        //  This method generates non-intersecting polygons with a random number of vertices and random coordinates within specified ranges
         private List<string> GenerateNonIntersectingPolygon(int minVertices, int maxVertices, float minCoordinateValue, float maxCoordinateValue, Random random)
         {
             List<Vector2> vertices = new List<Vector2>();
@@ -99,6 +193,8 @@ namespace RandomPolygonGenerator
             return polygonCoordinates;
         }
 
+        //   This method calculates the centroid of a polygon given a list of its vertices, represented as Vector2 objects
+        //   The centroid is the geometric center of the polygon and is often used for various geometric calculations
         private Vector2 ComputeCentroid(List<Vector2> vertices)
         {
             float cx = 0f;
@@ -116,6 +212,8 @@ namespace RandomPolygonGenerator
             return new Vector2(cx, cy);
         }
 
+        //   This method shuffles the elements in an IList<T> (generic list) using the Fisher-Yates shuffle algorithm
+        //   This algorithm randomly rearranges the elements in the list
         private void Shuffle<T>(IList<T> list, Random random)
         {
             int n = list.Count;
@@ -126,6 +224,20 @@ namespace RandomPolygonGenerator
                 T value = list[k];
                 list[k] = list[n];
                 list[n] = value;
+            }
+        }
+
+        //  This method provides a constructor to initialize the X and Y values when creating a Vector2 instance
+        //  This struct is commonly used to store and manipulate 2D coordinates in applications where such data is needed
+        private struct Vector2
+        {
+            public float X;
+            public float Y;
+
+            public Vector2(float x, float y)
+            {
+                X = x;
+                Y = y;
             }
         }
 
@@ -140,25 +252,7 @@ namespace RandomPolygonGenerator
             return false;
         }
 
-        private void SaveButton_Click(object sender, EventArgs e)
-        {
-            if (sender is Button button && button.Tag is string filePath)
-            {
-                SaveFileDialog saveFileDialog = new SaveFileDialog
-                {
-                    Filter = "CSV Files (*.csv)|*.csv",
-                    Title = "Save CSV File",
-                    FileName = System.IO.Path.GetFileName(filePath),
-                };
-
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    File.Copy(filePath, saveFileDialog.FileName);
-                    MessageBox.Show("File saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-        }
-
+        //  Enables or disable the CheckBox by user input control
         private void vertexRangeCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             minVertexRangeNumericUpDown.Enabled = vertexRangeCheckBox.Checked;
@@ -173,8 +267,10 @@ namespace RandomPolygonGenerator
             numPolygonsNumericUpDown.Value = 0;
             minCoordinateValueNumericUpDown.Value = 0;
             maxCoordinateValueNumericUpDown.Value = 0;
+            fileListListBox.Items.Clear();
         }
 
+        //  This method redirects to Polygon Plotter UI
         private void button2_Click(object sender, EventArgs e)
         {
             // Create an instance of the OtherForm
@@ -182,23 +278,6 @@ namespace RandomPolygonGenerator
 
             // Show the OtherForm
             Generator.Show();
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private struct Vector2
-        {
-            public float X;
-            public float Y;
-
-            public Vector2(float x, float y)
-            {
-                X = x;
-                Y = y;
-            }
         }
     }
 }

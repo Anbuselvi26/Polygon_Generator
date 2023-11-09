@@ -38,7 +38,10 @@
             label3 = new Label();
             label4 = new Label();
             Clear = new Button();
+            button1 = new Button();
             button2 = new Button();
+            fileListListBox = new ListBox();
+            pictureBox = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)minVertexRangeNumericUpDown).BeginInit();
             ((System.ComponentModel.ISupportInitialize)maxVertexRangeNumericUpDown).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numPolygonsNumericUpDown).BeginInit();
@@ -215,6 +218,17 @@
             Clear.UseVisualStyleBackColor = true;
             Clear.Click += Clear_Click;
             // 
+            // button1
+            // 
+            /*button1.Location = new Point(44, 793);
+            button1.Margin = new Padding(4, 5, 4, 5);
+            button1.Name = "button2";
+            button1.Size = new Size(213, 47);
+            button1.TabIndex = 25;
+            button1.Text = "Select Folder";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += BrowseButton_Click;*/
+            // 
             // button2
             // 
             button2.Location = new Point(44, 593);
@@ -226,11 +240,31 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
+            // fileListListBox
+            // 
+            fileListListBox.ItemHeight = 15;
+            fileListListBox.Location = new Point(471, 100);
+            fileListListBox.Name = "fileListListBox";
+            fileListListBox.Size = new Size(600, 700);
+            fileListListBox.TabIndex = 1;
+            fileListListBox.SelectedIndexChanged += fileListListBox_SelectedIndexChanged;
+            // 
+            // pictureBox
+            // 
+            /*pictureBox.Location = new Point(890, 79);
+            pictureBox.Name = "pictureBox";
+            pictureBox.Size = new Size(508, 604);
+            pictureBox.TabIndex = 0;
+            pictureBox.TabStop = false;*/
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(489, 697);
+            ClientSize = new Size(1200, 900);
+            Controls.Add(pictureBox);
+            Controls.Add(fileListListBox);
+            Controls.Add(button1);
             Controls.Add(button2);
             Controls.Add(Clear);
             Controls.Add(label4);
@@ -252,8 +286,7 @@
             Controls.Add(maxCoordinateValueLabel);
             Margin = new Padding(4, 5, 4, 5);
             Name = "MainForm";
-            Text = "Random Polygon Generator";
-            Load += MainForm_Load;
+            Text = "Test Polygon Generator";
             ((System.ComponentModel.ISupportInitialize)minVertexRangeNumericUpDown).EndInit();
             ((System.ComponentModel.ISupportInitialize)maxVertexRangeNumericUpDown).EndInit();
             ((System.ComponentModel.ISupportInitialize)numPolygonsNumericUpDown).EndInit();
@@ -269,6 +302,9 @@
         private Label label3;
         private Label label4;
         private Button Clear;
+        private Button button1;
         private Button button2;
+        private PictureBox pictureBox;
+        private ListBox fileListListBox; 
     }
 }
